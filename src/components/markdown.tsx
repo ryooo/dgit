@@ -16,23 +16,22 @@ type Props = {
 
 const Markdown: React.FC<Props> = ({theme}) => {
   const [markdown, setMarkdown] = useState(null)
-  const [options, setOptions] = useState({})
+  const [options, setOptions] = useState({
+    mode: "hypermd",
+    lineNumbers: false,
+    indentUnit: 2,
+    theme: theme,
+  })
   const { data, error } = useMarkdownApi('sample_docs/test.md');
-  let editor: any;
 
   useEffect(() => {
     const textarea: any = document.getElementById("editor")
     if (textarea != null) {
-      editor = VickyMD.fromTextArea(textarea, {
-          mode: "hypermd",
-          lineNumbers: false,
-          indentUnit: 2,
-          theme: theme,
-      });
+      let editor = VickyMD.fromTextArea(textarea);
       editor.setValue(data.markdown);
       editor.setSize("100%", "100%");
     }
-  });
+  }, []);
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;

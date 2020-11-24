@@ -12,7 +12,7 @@ const Sidebar: React.FC<Props> = ({outline, showSidebar, hideSidebar}) => {
     html = document.querySelector("html")
     sidebar = document.getElementById("sidebar")
     sidebarLinks = document.querySelectorAll('#sidebar a')
-  })
+  }, [])
 
   const resize = (e: React.MouseEvent<HTMLInputElement>) => {
     var pos = (e.clientX - sidebar.offsetLeft);
