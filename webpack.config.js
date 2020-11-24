@@ -16,7 +16,9 @@ module.exports = {
     resolve: {
         modules: ["node_modules"],
         alias: {
-            "react-dom": "@hot-loader/react-dom"
+            "react-dom": "@hot-loader/react-dom",
+            "@styles": path.resolve(__dirname, 'styles'),
+            "@src": path.resolve(__dirname, 'src'),
         },
         extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
     },
@@ -48,6 +50,10 @@ module.exports = {
                         loader: "css-loader",
                     }
                 ],
+            },
+            {
+                test: /\.(jpg|jpeg|png|woff|woff2|eot|ttf|svg)$/,
+                loader: 'url-loader?limit=100000',
             }
         ]
     },
@@ -56,7 +62,7 @@ module.exports = {
         contentBase: path.resolve(__dirname, "dist/"),
         port: 8080,
         inline: true,
-        open: true,
+        open: false,
         hot: true,
     },
     optimization: {
