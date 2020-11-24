@@ -1,69 +1,89 @@
-.pagination {
-  margin-top: 3rem;
+.prev-next-link {
   a {
+    border-bottom: 1px #ddd solid;
+    display: block;
     text-decoration: none;
+    color: var(--links);
+
+    div {
+      padding: 14px 40px;
+    }
   }
-  .next {
+  a:hover {
+    background-color: var(--theme-hover);
+  }
+  a:first-child {
+    border-top: 1px #ddd solid;
+  }
+}
+
+.prev-next-label {
+  font-size: .825rem;
+  color: #000;
+  margin-bottom: 10px;
+}
+
+@media (min-width: 550px) {
+  .prev-next-link {
+    display: flex;
+
+    a {
+      flex: 1;
+      border: none;
+    }
+    a:first-child {
+      border: none;
+    }
+  }
+  .prev-link {
+    text-align: left;
+  }
+
+  .next-link {
     text-align: right;
   }
 }
 
-@media (min-width: 550px) {
-  .pagination {
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    width: 100%;
-  }
-  .prev {
-    width: 48%;
-    a {
-      border-bottom: 0px;
-    }
-    p {
-      color: var(--links);
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-      margin-top: 0rem;
-    }
-    svg {
-      flex-shrink: 0;
-      margin-right: 0.5em;
-      vertical-align: sub;
-    }
-  }
-  .next {
-    margin-top: 0rem;
-    width: 48%;
 
-    a {
-      border-bottom: 0px;
-    }
-    p {
-      color: var(--links);
-      font-weight: 400;
-      margin-bottom: 0.5rem;
-      margin-top: 0rem;
-    }
-    svg {
-      flex-shrink: 0;
-      margin-left: 0.5em;
-      vertical-align: sub;
-    }
-  }
+@mixin chevron-left($color) {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="%23#{$color}" d="M34.52 239.03L228.87 44.69c9.37-9.37 24.57-9.37 33.94 0l22.67 22.67c9.36 9.36 9.37 24.52.04 33.9L131.49 256l154.02 154.75c9.34 9.38 9.32 24.54-.04 33.9l-22.67 22.67c-9.37 9.37-24.57 9.37-33.94 0L34.52 272.97c-9.37-9.37-9.37-24.57 0-33.94z"/></svg>') no-repeat 1.5% center;
+  background-size: 16px 28px;
 }
 
-@media (min-width: 750px) {
-  .pagination {
-    .prev {
-      span {
-        margin-left: -1.5em;
-      }
-    }
-    .next {
-      span {
-        margin-right: -1.5em;
-      }
-    }
+@mixin chevron-right($color) {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="%23#{$color}" d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>') no-repeat 98.5% center;
+  background-size: 16px 28px;
+}
+
+.dark.prev-next-link {
+  .prev-link > div {
+    @include chevron-left("2b79a2")
+  }
+  .next-link > div {
+    @include chevron-right("2b79a2")
+  }
+}
+.light.prev-next-link {
+  .prev-link > div {
+    @include chevron-left("4183c4")
+  }
+  .next-link > div {
+    @include chevron-right("4183c4")
+  }
+}
+.one-dark.prev-next-link {
+  .prev-link > div {
+    @include chevron-left("2b79a2")
+  }
+  .next-link > div {
+    @include chevron-right("2b79a2")
+  }
+}
+.solarized-light.prev-next-link {
+  .prev-link > div {
+    @include chevron-left("2b79a2")
+  }
+  .next-link > div {
+    @include chevron-right("2b79a2")
   }
 }

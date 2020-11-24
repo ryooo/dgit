@@ -16,13 +16,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Sidebar from '~/components/sidebar'
 import Header from '~/components/header'
 import Markdown from '~/components/markdown'
+import PrevNextNav from '~/components/prev_next_nav'
 
 library.add(fas)
 
 declare global {
   interface Window {
-    ace: any
-    editors: any
+    ace: any;
+    editors: any;
+    cm: any;
   }
 }
 
@@ -117,7 +119,8 @@ const App: React.FC = () => {
               <Header {...publicMethods} />
               <div id="content" className="content">
                   <main>
-                    <Markdown theme={codeMirrorTheme}/>
+                    <Markdown theme={codeMirrorTheme} />
+                    <PrevNextNav theme={codeMirrorTheme} />
                   </main>
               </div>
           </div>

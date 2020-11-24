@@ -1,13 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useMarkdownApi } from '~/utils/api'
-import '@styles/components/codemirror.css'
+import '@styles/codemirror.css'
 import 'vickymd/theme/editor_themes/light.css'
 import 'vickymd/theme/editor_themes/dark.css'
 import 'vickymd/theme/editor_themes/one-dark.css'
 import 'vickymd/theme/editor_themes/solarized-light.css'
 import * as CodeMirror from "codemirror";
+import { openURL } from "~/utils/utils";
 import "~/mode/dgitmd";
 
+import * as FoldImage from "vickymd/addon/fold-image"
 import * as VickyMD from "vickymd";
 
 type Props = {
@@ -18,20 +20,60 @@ const Markdown: React.FC<Props> = (props) => {
   const [editor, setEditor] = useState(null)
   const [theme, setTheme] = useState(props.theme)
   const [markdown, setMarkdown] = useState(null)
+  const [cursorPosition, setCursorPosition] = useState({
+    line: 0,
+    ch: 0,
+  });
   const textareaEl = useRef(null)
   const [options, setOptions] = useState({
-    mode: "hypermd",
+    mode: {
+      name: "hypermd",
+      hashtag: true,
+    },
     lineNumbers: false,
-    indentUnit: 2,
+    foldGutter: false,
+    keyMap: "hypermd",
+    showCursorWhenSelecting: true,
+    // hmdClick: (info: any, cm: any) => {
+    //   let { text, url } = info;
+    //   if (info.type === "link" || info.type === "url") {
+    //     const footnoteRef = text.match(/\[[^[\]]+\](?:\[\])?$/); // bare link, footref or [foot][] . assume no escaping char inside
+    //     if (!footnoteRef && (info.ctrlKey || info.altKey) && url) {
+    //       // just open URL
+    //       openURL(url);
+    //       return false; // Prevent default click event
+    //     }
+    //   }
+    // },
   })
   const { data, error } = useMarkdownApi('sample_docs/test.md');
 
   useEffect(() => {
     if (textareaEl != null) {
-      let editor = VickyMD.fromTextArea(textareaEl.current);
-      editor.setValue(data.markdown);
-      editor.setSize("100%", "100%");
-      setEditor(editor);
+      window.cm = VickyMD.fromTextArea(textareaEl.current, {
+        inputStyle: "contenteditable",
+        hmdFold: {
+          image: true,
+          link: true,
+          math: true,
+          html: true, // maybe dangerous
+          emoji: true,
+          widget: true,
+          code: true,
+        },
+      });
+      window.cm.setValue(data.markdown);
+      window.cm.setSize("100%", "100%");
+      window.cm.on("cursorActivity", (instance) => {
+        const cursor = instance.getCursor();
+        if (cursor) {
+          setCursorPosition({
+            line: cursor.line,
+            ch: cursor.ch,
+          });
+        }
+      });
+      setEditor(window.cm);
     }
   }, [textareaEl]);
 
