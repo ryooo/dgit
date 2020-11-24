@@ -8,7 +8,7 @@
     "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "jsx": "react",
     "baseUrl": ".",
     "paths": {
