@@ -7,6 +7,10 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
 
 module.exports = {
     mode: "development",
+    node: {
+        // @see https://github.com/jeremyfa/yaml.js/issues/102
+        fs: "empty"
+    },
     entry: ["react-hot-loader/patch", path.resolve(__dirname, "./src/index.tsx")],
     output: {
         path: path.resolve(__dirname, "dist/"),

@@ -1,22 +1,33 @@
 import React, {useState, useEffect} from 'react'
 import { useMarkdownApi } from '~/utils/api'
-import '@styles/components/Codemirror.css'
+import '@styles/components/codemirror.css'
+import 'vickymd/theme/editor_themes/light.css'
+import 'vickymd/theme/editor_themes/dark.css'
+import 'vickymd/theme/editor_themes/one-dark.css'
+import 'vickymd/theme/editor_themes/solarized-light.css'
 import * as CodeMirror from "codemirror";
 import "~/mode/dgitmd";
 
-type Props = {}
+import * as VickyMD from "vickymd";
 
-const Markdown: React.FC<Props> = ({}) => {
+type Props = {
+  theme?: string;
+}
+
+const Markdown: React.FC<Props> = ({theme}) => {
   const [markdown, setMarkdown] = useState(null)
+  const [options, setOptions] = useState({})
   const { data, error } = useMarkdownApi('sample_docs/test.md');
+  let editor: any;
 
   useEffect(() => {
     const textarea: any = document.getElementById("editor")
     if (textarea != null) {
-      let editor = CodeMirror.fromTextArea(textarea, {
-          mode: "dgitmd",
+      editor = VickyMD.fromTextArea(textarea, {
+          mode: "hypermd",
           lineNumbers: false,
           indentUnit: 2,
+          theme: theme,
       });
       editor.setValue(data.markdown);
       editor.setSize("100%", "100%");
@@ -25,10 +36,10 @@ const Markdown: React.FC<Props> = ({}) => {
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
-  
+
   return (
       <>
-        <textarea id="editor"></textarea>
+        <textarea id="editor" style={{display: "none"}}></textarea>
       </>
     );
 }

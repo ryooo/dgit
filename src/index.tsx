@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import * as ReactDOM from "react-dom";
 import { hot } from "react-hot-loader/root";
 
@@ -27,6 +27,7 @@ declare global {
 }
 
 const App: React.FC = () => {
+  const [codeMirrorTheme, setCodeMirrorTheme] = useState<string>(null)
   let html: any;
   useLayoutEffect(() => {
     html = document.querySelector("html")
@@ -69,25 +70,20 @@ const App: React.FC = () => {
     html.classList.add('sidebar-hidden');
   }
   const setTheme = (theme: string, store = true) => {
-    let aceTheme: string;
-    if (theme == 'coal' || theme == 'navy') {
-      aceTheme = "ace/theme/tomorrow_night";
-    } else if (theme == 'ayu') {
-      aceTheme = "ace/theme/tomorrow_night";
+    if (theme == 'coal' || theme == 'ayu') {
+      setCodeMirrorTheme("dark");
+    } else if (theme == 'navy') {
+      setCodeMirrorTheme("one-dark");
+    } else if (theme == 'rust') {
+      setCodeMirrorTheme("solarized-light");
     } else {
-      aceTheme = "ace/theme/dawn";
+      setCodeMirrorTheme("light");
     }
 
     setTimeout(function () {
       const themeColorMetaTag: any = document.querySelector('meta[name="theme-color"]');
       themeColorMetaTag.content = getComputedStyle(document.body).backgroundColor;
     }, 1);
-
-    if (window.ace && window.editors) {
-      window.editors.forEach(function (editor: any) {
-        editor.setTheme(aceTheme);
-      });
-    }
 
     const html: any = document.querySelector("html");
     html.classList.remove(currentTheme());
@@ -104,13 +100,15 @@ const App: React.FC = () => {
       return theme;
     }
   }
-  setTheme(currentTheme());
+  if (codeMirrorTheme === null) setTheme(currentTheme());
+  
   const publicMethods = {
     showSidebar: (e: any) => {return showSidebar(e);},
     hideSidebar: (e: any) => {return hideSidebar(e);},
     setTheme: (theme: any, store = true) => {return setTheme(theme, store);},
     currentTheme: () => {return currentTheme();},
   }
+
   return (
     <>
       <Sidebar outline={outline} {...publicMethods} />
@@ -119,7 +117,7 @@ const App: React.FC = () => {
               <Header {...publicMethods} />
               <div id="content" className="content">
                   <main>
-                    <Markdown />
+                    <Markdown theme={codeMirrorTheme}/>
                   </main>
               </div>
           </div>
