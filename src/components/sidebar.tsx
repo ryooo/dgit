@@ -7,9 +7,7 @@ type Props = {
 }
 
 const Sidebar: React.FC<Props> = ({outline, showSidebar, hideSidebar}) => {
-  let html: any;
-  let sidebar: any;
-  let sidebarLinks: any;
+  let html: any, sidebar: any, sidebarLinks: any;
   useLayoutEffect(() => {
     html = document.querySelector("html")
     sidebar = document.getElementById("sidebar")

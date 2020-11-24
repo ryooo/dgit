@@ -116,3 +116,7 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+# app
+.DS_Store
+
+
