@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import { useMarkdownApi } from '~/utils/api'
 import '@styles/components/Codemirror.css'
 import * as CodeMirror from "codemirror";
+import "~/mode/dgitmd";
 
 type Props = {}
 
@@ -13,7 +14,7 @@ const Markdown: React.FC<Props> = ({}) => {
     const textarea: any = document.getElementById("editor")
     if (textarea != null) {
       let editor = CodeMirror.fromTextArea(textarea, {
-          mode: "markdown",
+          mode: "dgitmd",
           lineNumbers: false,
           indentUnit: 2,
       });

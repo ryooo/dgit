@@ -6,7 +6,7 @@ const jsonFetcher = (url: string) => axios.get(url).then(res => res.data)
 
 export const useMarkdownApi = (filePath: string) => {
   return {
-    data: {markdown: "# test\n\n## sample\n\n- aaa\n- bbb\n  - ddd\n  - eee\n- ccc\n\n> asdfa\n\naa\n"},
+    data: {markdown: "# test\n\n## sample\n\n![asdf](http://hoge.com/aa.png)\n\n- aaa\n- bbb\n  - ddd\n  - eee\n- ccc\n\n> asdfa\n\naa\n"},
     error: null,
   }
 }
