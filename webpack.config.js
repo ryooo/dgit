@@ -20,10 +20,35 @@ module.exports = {
             "@styles": path.resolve(__dirname, 'styles'),
             "~": path.resolve(__dirname, 'src'),
         },
-        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json", ".sass", ".scss"]
     },
     module: {
         rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                use: [
+                    "style-loader",
+                    {
+                        loader: 'css-loader', 
+                        options: {
+                            modules: {
+                                localIdentName: '[name]__[local]___[hash:base64:5]'
+                            },
+                            sourceMap: true, 
+                            importLoaders: 1,
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            implementation: require("sass"),
+                            sassOptions: {
+                                includePaths: [path.join(__dirname, 'styles')],
+                            },
+                        },
+                    },
+                ],
+            },
             {
                 test: /\.(j|t)s(x)?$/,
                 exclude: /node_modules/,

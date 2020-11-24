@@ -13,6 +13,7 @@
     "baseUrl": ".",
     "paths": {
       "~/*": ["./src/*"],
+      "@styles/*": ["./styles/*"],
     },
     "lib": [
       "ES2015",
