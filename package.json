@@ -36,6 +36,8 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
+    "axios": "^0.21.0",
+    "swr": "^0.3.9",
     "url-loader": "^4.1.1"
   }
 }

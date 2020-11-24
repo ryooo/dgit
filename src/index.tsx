@@ -15,6 +15,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import Sidebar from '~/components/sidebar'
 import Header from '~/components/header'
+import Markdown from '~/components/markdown'
 
 library.add(fas)
 
@@ -118,6 +119,7 @@ const App: React.FC = () => {
               <Header {...publicMethods} />
               <div id="content" className="content">
                   <main>
+                    <Markdown />
                   </main>
               </div>
           </div>
