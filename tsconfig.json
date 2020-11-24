@@ -10,6 +10,10 @@
     "allowJs": true,
     "checkJs": true,
     "jsx": "react",
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./src/*"],
+    },
     "lib": [
       "ES2015",
       "DOM"

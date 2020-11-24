@@ -13,8 +13,8 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import Sidebar from './components/sidebar'
-import Header from './components/header'
+import Sidebar from '~/components/sidebar'
+import Header from '~/components/header'
 
 library.add(fas)
 
