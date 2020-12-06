@@ -9,8 +9,8 @@ import * as CodeMirror from "codemirror";
 import { openURL } from "~/utils/utils";
 import "~/mode/dgitmd";
 
-import * as FoldImage from "vickymd/addon/fold-image"
 import * as VickyMD from "vickymd";
+import MathPreview from '~/components/math-preview'
 
 type Props = {
   theme?: string;
@@ -25,10 +25,21 @@ const Markdown: React.FC<Props> = (props) => {
     ch: 0,
   });
   const textareaEl = useRef(null)
+  const cmBaseEl = useRef(null)
   const [options, setOptions] = useState({
     mode: {
       name: "hypermd",
       hashtag: true,
+    },
+    inputStyle: "contenteditable",
+    hmdFold: {
+      image: true,
+      link: true,
+      math: true,
+      html: true, // maybe dangerous
+      emoji: true,
+      widget: true,
+      code: true,
     },
     lineNumbers: false,
     foldGutter: false,
@@ -50,18 +61,7 @@ const Markdown: React.FC<Props> = (props) => {
 
   useEffect(() => {
     if (textareaEl != null) {
-      window.cm = VickyMD.fromTextArea(textareaEl.current, {
-        inputStyle: "contenteditable",
-        hmdFold: {
-          image: true,
-          link: true,
-          math: true,
-          html: true, // maybe dangerous
-          emoji: true,
-          widget: true,
-          code: true,
-        },
-      });
+      window.cm = VickyMD.fromTextArea(textareaEl.current, options);
       window.cm.setValue(data.markdown);
       window.cm.setSize("100%", "100%");
       window.cm.on("cursorActivity", (instance) => {
@@ -90,9 +90,10 @@ const Markdown: React.FC<Props> = (props) => {
   if (!data) return <div>loading...</div>;
 
   return (
-      <>
+      <div id="cm-base">
         <textarea id="editor" style={{display: "none"}} ref={textareaEl}></textarea>
-      </>
+        <MathPreview />
+      </div>
     );
 }
 

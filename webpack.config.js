@@ -20,7 +20,8 @@ module.exports = {
     resolve: {
         modules: ["node_modules"],
         alias: {
-            "react-dom": "@hot-loader/react-dom",
+            // for VickyMD
+            // "react-dom": "@hot-loader/react-dom",
             "@styles": path.resolve(__dirname, 'styles'),
             "~": path.resolve(__dirname, 'src'),
         },

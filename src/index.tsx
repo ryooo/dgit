@@ -114,17 +114,17 @@ const App: React.FC = () => {
   return (
     <>
       <Sidebar outline={outline} {...publicMethods} />
-        <div className="page-wrapper">
-            <div className="page">
-              <Header {...publicMethods} />
-              <div id="content" className="content">
-                  <main>
-                    <Markdown theme={codeMirrorTheme} />
-                    <PrevNextNav theme={codeMirrorTheme} />
-                  </main>
-              </div>
+      <div className="page-wrapper">
+        <div className="page">
+          <Header {...publicMethods} />
+          <div id="content" className="content">
+            <main>
+              <Markdown theme={codeMirrorTheme} />
+              <PrevNextNav theme={codeMirrorTheme} />
+            </main>
           </div>
         </div>
+      </div>
     </>
   )
 }
