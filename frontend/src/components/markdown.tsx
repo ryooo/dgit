@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react'
 import { useMarkdownApi } from '~/utils/api'
 import '@styles/codemirror.css'
+
 import 'vickymd/theme/editor_themes/light.css'
 import 'vickymd/theme/editor_themes/dark.css'
 import 'vickymd/theme/editor_themes/one-dark.css'
@@ -11,6 +12,7 @@ import "~/mode/dgitmd";
 
 import * as VickyMD from "vickymd";
 import MathPreview from '~/components/math-preview'
+import MenuContainer from '~/components/MenuContainer'
 
 type Props = {
   theme?: string;
@@ -20,6 +22,10 @@ const Markdown: React.FC<Props> = (props) => {
   const [editor, setEditor] = useState(null)
   const [theme, setTheme] = useState(props.theme)
   const [markdown, setMarkdown] = useState(null)
+  const [menuContainerAttr, setMenuContainerAttr] = useState(null)
+  window.setMenuContainerAttr = function(attr) {
+    setMenuContainerAttr(attr);
+  }
   const [cursorPosition, setCursorPosition] = useState({
     line: 0,
     ch: 0,
@@ -40,9 +46,11 @@ const Markdown: React.FC<Props> = (props) => {
       emoji: true,
       widget: true,
       code: true,
+      box: true,
     },
     lineNumbers: false,
     foldGutter: false,
+    fixedGutter: false,
     keyMap: "hypermd",
     showCursorWhenSelecting: true,
     // hmdClick: (info: any, cm: any) => {
@@ -93,6 +101,7 @@ const Markdown: React.FC<Props> = (props) => {
       <div id="cm-base">
         <textarea id="editor" style={{display: "none"}} ref={textareaEl}></textarea>
         <MathPreview />
+        <MenuContainer attr={menuContainerAttr} />
       </div>
     );
 }

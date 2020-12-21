@@ -23,7 +23,7 @@ const Header: React.FC<Props> = ({setTheme, currentTheme, showSidebar, hideSideb
   }, [])
 
   const toggleBordered = () => {
-    setBordered(menuEl.current.offsetTop !== 0);
+    setBordered(menuEl.current?.offsetTop !== 0);
   }
 
   const scrollTop = (e: any) => {
@@ -50,7 +50,7 @@ const Header: React.FC<Props> = ({setTheme, currentTheme, showSidebar, hideSideb
   }
 
   const toggleThemesPopup = (e: any) => {
-    if (themePopupEl.current.style.display === 'block') {
+    if (themePopupEl.current?.style.display === 'block') {
       hideThemesPopup(e);
     } else {
       showThemesPopup(e);

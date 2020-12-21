@@ -70,6 +70,7 @@ const App: React.FC = () => {
   const hideSidebar = (e: React.MouseEvent<HTMLInputElement>) => {
     html.classList.remove('sidebar-visible');
     html.classList.add('sidebar-hidden');
+    document.documentElement.style.setProperty('--sidebar-width', '10px');
   }
   const setTheme = (theme: string, store = true) => {
     if (theme == 'coal' || theme == 'ayu') {
